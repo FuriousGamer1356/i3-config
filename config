@@ -1,0 +1,153 @@
+# ------------------------------------ #
+# https://github.com/FuriousGamer1356/ #
+# ------------------------------------ #
+
+### BASIC SETTINGS ###
+set $mod Mod4
+font pango:Monospace bold 10
+
+# window border colors
+client.focused          #003366 #003366 #ffffff #0033aa #003366
+client.focused_inactive #001133 #001133 #aaaaaa #555555 #001133
+client.unfocused        #001133 #001133 #aaaaaa #555555 #001133
+
+### AUTOSTART ###
+
+# change the line below or delete it!
+exec --no-startup-id xinput set-prop 'SYNA7DB5:00 06CB:CD41 Touchpad' 'libinput Tapping Enabled' 1
+exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id nitrogen --set-scaled ~/.config/i3/wallpaper.jpg
+exec picom
+exec dunst
+exec flameshot
+
+### KEYBINDINGS ###
+
+# applications
+bindsym $mod+t exec i3-sensible-terminal
+bindsym $mod+w exec sensible-browser
+bindsym $mod+f exec xdg-open ~/
+bindsym $mod+s exec rofi -show drun -config ~/.config/i3/config.rasi
+bindsym $mod+q kill
+
+# utilities
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 10%+ 
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
+bindsym Print exec --no-startup-id flameshot gui
+
+# change focus
+bindsym $mod+h focus left 
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# other window management
+bindsym $mod+z split h
+bindsym $mod+v split v
+bindsym $mod+F11 fullscreen toggle
+bindsym $mod+Tab layout toggle all
+bindsym $mod+Shift+f floating toggle
+
+# resize mode
+mode "resize" {
+	set $size 2
+        bindsym h resize shrink width $size px or $size ppt
+        bindsym j resize grow height $size px or $size ppt
+        bindsym k resize shrink height $size px or $size ppt
+        bindsym l resize grow width $size px or $size ppt
+
+        bindsym Left resize shrink width $size px or $size ppt
+        bindsym Down resize grow height $size px or $size ppt
+        bindsym Up resize shrink height $size px or $size ppt
+        bindsym Right resize grow width $size px or $size ppt
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# restart / reload i3
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+set $logout "SLEEP (1), LOG OUT (2), REBOOT (3), SHUTDOWN (4)"
+mode $logout {
+	bindsym 1 exec --no-startup-id systemctl suspend, mode "default" 
+	bindsym 2 exec --no-startup-id i3-msg exit, mode "default"
+	bindsym 3 exec --no-startup-id systemctl reboot, mode "default"
+	bindsym 4 exec --no-startup-id systemctl poweroff, mode "default"
+
+	bindsym Escape mode "default"
+	bindsym $mod+e mode "default"
+}
+bindsym $mod+e mode $logout
+
+### WORKSPACES ###
+
+# workspace names
+set $ws1 "1:I"
+set $ws2 "2:II"
+set $ws3 "3:III"
+set $ws4 "4:IV"
+set $ws5 "5:V"
+set $ws6 "6:VI"
+set $ws7 "7:VII"
+set $ws8 "8:VIII"
+set $ws9 "9:IX"
+set $ws10 "10:X"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+### BAR ###
+bar {
+	colors {
+		separator #ffffff
+		focused_workspace  #003366 #003366 #ffffff
+		active_workspace   #000000 #000000 #ffffff
+		inactive_workspace #000000 #000000 #777777
+	}
+	strip_workspace_numbers yes
+	separator_symbol " | "
+	position top
+        status_command i3status -c ~/.config/i3/i3status.conf
+}
