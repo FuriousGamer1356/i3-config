@@ -9,7 +9,7 @@ This config was designed to work out-of-the-box. All you have to do is follow th
 Clone repository:
 ```
 mv ~/.config/i3 ~/i3-backup
-git clone https://github.com/FuriousGamer1356/i3-config
+git clone https://github.com/FuriousGamer1356/i3-config ~/.config/i3
 ```
 Install dependencies:
 ```
