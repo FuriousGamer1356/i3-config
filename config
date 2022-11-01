@@ -17,8 +17,7 @@ client.unfocused        #001133 #001133 #aaaaaa #555555 #001133
 exec --no-startup-id xinput set-prop 'SYNA7DB5:00 06CB:CD41 Touchpad' 'libinput Tapping Enabled' 1
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id nitrogen --set-scaled ~/.config/i3/wallpaper.jpg
-exec picom
-exec dunst
+exec --no-startup-id dunst
 exec flameshot
 
 ### KEYBINDINGS ###
@@ -61,7 +60,7 @@ bindsym $mod+Shift+Right move right
 # other window management
 bindsym $mod+z split h
 bindsym $mod+v split v
-bindsym $mod+F11 fullscreen toggle
+bindsym $mod+Control+f fullscreen toggle
 bindsym $mod+Tab layout toggle all
 bindsym $mod+Shift+f floating toggle
 
