@@ -15,3 +15,4 @@ Install dependencies:
 ```
 sudo apt install nitrogen rofi sensible-utils xdg-utils brightnessctl pulseaudio pavucontrol picom dunst
 ```
+The installation is now complete. For the best experience, you can personalize the config file to fit your needs.
