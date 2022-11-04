@@ -12,48 +12,52 @@ configuration {
 * {
 	bg:				#000000;
 	fg:				#ffffff;
-	accent:				#687363;
 	button:				#1c1c1c;
 
 	background-color:		@bg;
 	text-color:			@fg;
-	border-color:                   #003366;
+	border-color:                   #007040;
 }
 
 window {
 	border-radius:                  0px;
-	width:			    	25%;
+	width:			    	10%;
+	height:                         97.80%;
 	padding: 			16px;
 	border:                         2;
+	location:                       south west;
+	anchor:                         south west;
 }
 
 prompt {
-	background-color:		#003366;
+	background-color:		#007040;
 	enabled:			true;
-	padding:			0.5% 16px 0% -0.5%;
+	padding:			0% -1px 0% 0%;
 	font:				"Monospace bold 10";
 }
 
 entry {
-    	placeholder:			"Search";
-	background-color:               #003366;
-    	placeholder-color:              @fg;
+	placeholder:                    "Search";
+	background-color:               #007040;
+    	placeholder-color:              #ffffff;
     	expand:                         true;
     	padding:                        0.15% 0% 0% 0%;
 }
 
 inputbar {
 	children:			[ prompt, entry ];
-    	background-color:               #003366;
+    	background-color:               #007040;
+	border:                         2;
+	border-color:                   #007040;
     	expand:                         false;
-    	border-radius:                  6px;
+    	border-radius:                  0px;
     	margin:                         0%;
-    	padding:                        6px;
+    	padding:                        2px;
 }
 
 listview {
-    	columns:                        5;
-    	lines:	                        4;
+    	columns:                        3;
+    	lines:	                        5;
     	cycle:                          false;
     	dynamic:                        true;
     	layout:                         vertical;	
@@ -67,7 +71,7 @@ mainbox {
 
 element {
     	orientation:                    vertical;
-    	padding:                        2% 0% 2% 0%;
+    	padding:                        1% 0% 1% 0%;
 }
 
 element-icon {
@@ -78,7 +82,7 @@ element-icon {
 element-text {
     	expand:                         true;
     	horizontal-align:               0.5;
-    	vertical-align:                 0.5;
+    	vertical-align:                 0;
     	margin:                         0.5% 0.5% -0.5% 0.5%;
 }
 
@@ -88,6 +92,8 @@ element-text, element-icon {
 }
 
 element selected {
-    	background-color:               #003366;
-    	border-radius:                  6px;
+    	background-color:               #007040;
+	border:                         2;
+	border-color:                   #007040;
+    	border-radius:                  0px;
 }
