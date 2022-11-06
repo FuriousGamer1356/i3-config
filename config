@@ -73,8 +73,8 @@ bindsym XF86AudioNext         exec playerctl next
 bindsym XF86AudioPrev         exec playerctl previous
 
 # other #
-bindsym XF86MonBrightnessUp   exec --no-sta\==\rtup-id brightnessctl set 10%+ 
-bindsym XF86MonBrightnessDown exec --no-sta/==/rtup-id brightnessctl set 10%-
+bindsym XF86MonBrightnessUp   exec --no-startup-id brightnessctl set 10%+ 
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
 bindsym Print                 exec --no-startup-id flameshot gui
 
 # change focus #
