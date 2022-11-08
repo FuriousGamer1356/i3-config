@@ -9,7 +9,7 @@
 #-------------------------------------------#
 
 
-set  $mod Mod4
+set $mod Mod4
 font pango:Monospace bold 11
 
 
@@ -33,7 +33,7 @@ set $wsinactivefontcolor #707070
 
 # mode color #
 set $modeoutlinecolor    #000000
-set $modecolor           #a0a000
+set $modecolor           #aaaa00
 set $modefontcolor       #ffffff
 
 
@@ -146,40 +146,40 @@ bindsym $mod+e mode $logout
 #----------------------#
 
 
-# to find your monitor's name, run
-# 'xrandr --listmonitors' in a terminal.
-set $monitor_left "HDMI-1"
-set $monitor_right "eDP-1"
+# To find your monitor's name, run 'xrandr --listmonitors' in a terminal.
+# (if you have more than 2 monitors, you'll manually have to add your monitor)
+set $monitor_1 HDMI-1
+set $monitor_2 eDP-1
+exec --no-startup-id xrandr --output $monitor_1 --auto; xrandr --output $monitor_1 --left-of $monitor_2
 
-# If you use a single display, delete all lines that
-# include "$monitor_left" and "$monitor_right".
+# select primary display #
+set $select_display "DISPLAY: (1), (2), (A)LL"
+mode $select_display {
+	bindsym 1 exec --no-startup-id "xrandr --output $monitor_2 --off; xrandr --output $monitor_1 --auto", mode "default"
+	bindsym 2 exec --no-startup-id "xrandr --output $monitor_1 --off; xrandr --output $monitor_2 --auto", mode "default"
+	bindsym a exec --no-startup-id "xrandr --output $monitor_1 --auto; xrandr --output $monitor_2 --auto; xrandr --output $monitor_1 --left-of $monitor_2", mode "default"
 
-exec --no-startup-id xrandr --output $monitor_left --left-of $monitor_right
+	bindsym Escape mode "default"
+	bindsym $mod+p mode "default"
+}
+bindsym $mod+p mode $select_display
 
 # workspace names #
 
-set $ws1 "1:I"
-set $ws2 "2:II"
-set $ws3 "3:III"
-set $ws4 "4:IV"
-set $ws5 "5:V"
-set $ws6 "6:VI"
-set $ws7 "7:VII"
-set $ws8 "8:VIII"
-set $ws9 "9:IX"
-set $ws10 "10:X"
+set $ws1  "1:I"
+set $ws2  "2:II"
+set $ws3  "3:III"
+set $ws4  "4:IV"
+set $ws5  "5:V"
+set $ws6  "6:VI"
 
 # assign workspaces to monitors #
-workspace $ws1 output $monitor_left
-workspace $ws2 output $monitor_left
-workspace $ws3 output $monitor_left
-workspace $ws4 output $monitor_left
-workspace $ws5 output $monitor_left
-workspace $ws6 output $monitor_right
-workspace $ws7 output $monitor_right
-workspace $ws8 output $monitor_right
-workspace $ws9 output $monitor_right
-workspace $ws10 output $monitor_right
+workspace $ws1 output $monitor_1
+workspace $ws2 output $monitor_1
+workspace $ws3 output $monitor_1
+workspace $ws4 output $monitor_2
+workspace $ws5 output $monitor_2
+workspace $ws6 output $monitor_2
 
 # switch to workspace #
 bindsym $mod+1 workspace $ws1
@@ -188,10 +188,6 @@ bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
 
 # move focused container to workspace #
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -200,10 +196,6 @@ bindsym $mod+Shift+3 move container to workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
 
 
 #---------------#
@@ -214,7 +206,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 bar {
 	status_command i3status -c ~/.config/i3/i3status.conf
 
-	tray_output $monitor_right
+	tray_output $monitor_2
 	tray_padding 4
 	strip_workspace_numbers yes
 	separator_symbol " / "
