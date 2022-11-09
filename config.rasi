@@ -16,21 +16,21 @@ configuration {
 
 	background-color:		@bg;
 	text-color:			@fg;
-	border-color:                   #007040;
+	border-color:                   #00a0c0;
 }
 
 window {
 	border-radius:                  0px;
 	width:			    	10%;
 	height:                         97.80%;
-	padding: 			16px;
+	padding: 			0px;
 	border:                         2;
-	location:                       south west;
+	location:			south west;
 	anchor:                         south west;
 }
 
 prompt {
-	background-color:		#007040;
+	background-color:		#00a0c0;
 	enabled:			true;
 	padding:			0% -1px 0% 0%;
 	font:				"Monospace bold 10";
@@ -38,7 +38,7 @@ prompt {
 
 entry {
 	placeholder:                    "Search";
-	background-color:               #007040;
+	background-color:               #00a0c0;
     	placeholder-color:              #ffffff;
     	expand:                         true;
     	padding:                        0.15% 0% 0% 0%;
@@ -46,9 +46,9 @@ entry {
 
 inputbar {
 	children:			[ prompt, entry ];
-    	background-color:               #007040;
+    	background-color:               #00a0c0;
 	border:                         2;
-	border-color:                   #007040;
+	border-color:                   #00a0c0;
     	expand:                         false;
     	border-radius:                  0px;
     	margin:                         0%;
@@ -56,8 +56,8 @@ inputbar {
 }
 
 listview {
-    	columns:                        3;
-    	lines:	                        5;
+    	columns:                        2;
+    	lines:	                        1;
     	cycle:                          false;
     	dynamic:                        true;
     	layout:                         vertical;	
@@ -65,7 +65,7 @@ listview {
 
 mainbox {
     	children:                       [ inputbar, listview ];
-    	spacing:                       	2%;
+    	spacing:                       	0px;
     	padding:                        0% 0% 0% 0%;
 }
 
@@ -92,8 +92,8 @@ element-text, element-icon {
 }
 
 element selected {
-    	background-color:               #007040;
+    	background-color:               #00a0c0;
 	border:                         2;
-	border-color:                   #007040;
+	border-color:                   #00a0c0;
     	border-radius:                  0px;
 }
