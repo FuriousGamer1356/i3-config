@@ -19,17 +19,17 @@ font pango:Monospace bold 11
 
 
 # class                  border  border  font    indic.  border
-client.focused           #007040 #007040 #ffffff #00f090 #007040
-client.focused_inactive  #003000 #003000 #c0c0c0 #003000 #003000
-client.unfocused         #003000 #003000 #c0c0c0 #003000 #003000
+client.focused           #00a0c0 #00a0c0 #ffffff #30ffff #00a0c0
+client.focused_inactive  #006080 #006080 #ffffff #006080 #006080
+client.unfocused         #006080 #006080 #ffffff #006080 #006080
 
-# active workspace color #
-set $wsoutline           #000000
-set $wscolor             #007040
+# workspace color #
+set $wsoutline           #00a0c0
+set $wscolor             #00a0c0
 set $wsfontcolor         #ffffff
 set $wsinactiveoutline   #000000
-set $wsinactivecolor     #000000
-set $wsinactivefontcolor #707070
+set $wsinactivecolor     #006080
+set $wsinactivefontcolor #ffffff
 
 # mode color #
 set $modeoutlinecolor    #000000
@@ -45,8 +45,9 @@ set $modefontcolor       #ffffff
 # change the line below or delete it!
 exec --no-startup-id xinput set-prop 'SYNA7DB5:00 06CB:CD41 Touchpad' 'libinput Tapping Enabled' 1
 exec --no-startup-id dex --autostart --environment i3
-exec --no-startup-id nitrogen --set-scaled ~/.config/i3/wallpaper.jpg
 exec --no-startup-id dunst
+exec --no-startup-id "nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=0; nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=1"
+exec picom --no-experimental-backends
 exec flameshot
 
 
@@ -67,6 +68,7 @@ for_window [class="Rofi"] floating enable
 bindsym XF86AudioRaiseVolume  exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%, exec pactl set-sink-mute @DEFAULT_SINK@ false
 bindsym XF86AudioLowerVolume  exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%, exec pactl set-sink-mute @DEFAULT_SINK@ false
 bindsym XF86AudioMute         exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+
 bindsym XF86AudioPlay         exec playerctl play
 bindsym XF86AudioPause        exec playerctl pause
 bindsym XF86AudioNext         exec playerctl next
@@ -147,9 +149,9 @@ bindsym $mod+e mode $logout
 
 
 # To find your monitor's name, run 'xrandr --listmonitors' in a terminal.
-# (if you have more than 2 monitors, you'll manually have to add your monitor)
 set $monitor_1 HDMI-1
 set $monitor_2 eDP-1
+
 exec --no-startup-id xrandr --output $monitor_1 --auto; xrandr --output $monitor_1 --left-of $monitor_2
 
 # select primary display #
@@ -165,21 +167,28 @@ mode $select_display {
 bindsym $mod+p mode $select_display
 
 # workspace names #
-
-set $ws1  "1:I"
-set $ws2  "2:II"
-set $ws3  "3:III"
-set $ws4  "4:IV"
-set $ws5  "5:V"
-set $ws6  "6:VI"
+set $ws1 "1:I"
+set $ws2 "2:II"
+set $ws3 "3:III"
+set $ws4 "4:IV"
+set $ws5 "5:V"
+set $ws6 "6:VI"
+set $ws7 "7:VII"
+set $ws8 "8:VIII"
+set $ws9 "9:IX"
+set $ws10 "10:X"
 
 # assign workspaces to monitors #
 workspace $ws1 output $monitor_1
 workspace $ws2 output $monitor_1
 workspace $ws3 output $monitor_1
-workspace $ws4 output $monitor_2
-workspace $ws5 output $monitor_2
+workspace $ws4 output $monitor_1
+workspace $ws5 output $monitor_1
 workspace $ws6 output $monitor_2
+workspace $ws7 output $monitor_2
+workspace $ws8 output $monitor_2
+workspace $ws9 output $monitor_2
+workspace $ws10 output $monitor_2
 
 # switch to workspace #
 bindsym $mod+1 workspace $ws1
@@ -188,6 +197,10 @@ bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
 
 # move focused container to workspace #
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -196,6 +209,10 @@ bindsym $mod+Shift+3 move container to workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
 
 
 #---------------#
@@ -206,7 +223,6 @@ bindsym $mod+Shift+6 move container to workspace $ws6
 bar {
 	status_command i3status -c ~/.config/i3/i3status.conf
 
-	tray_output $monitor_2
 	tray_padding 4
 	strip_workspace_numbers yes
 	separator_symbol " / "
@@ -215,7 +231,7 @@ bar {
 	colors {
 		separator          #ffffff
 		binding_mode       $modeoutlinecolor  $modecolor       $modefontcolor
-		focused_workspace  $wsoutline         $wscolor         $wsfontcolor 
+		focused_workspace  $wsoutline         $wscolor         $wsfontcolor
 		active_workspace   $wsinactiveoutline $wsinactivecolor $wsinactivefontcolor
 		inactive_workspace $wsinactiveoutline $wsinactivecolor $wsinactivefontcolor
 	}
