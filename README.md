@@ -1,11 +1,12 @@
 # My i3wm config
 This config was designed to work out-of-the-box. All you have to do is follow the installation guide below.
 
-![rice-1](https://user-images.githubusercontent.com/101535508/199878432-5b83d38c-bb58-46c4-a42b-b7569c15f1d8.png)
 
-![rice-2](https://user-images.githubusercontent.com/101535508/199878443-10ba3629-3e2d-42a9-a90d-4454791942ad.png)
+![rice-5](https://user-images.githubusercontent.com/101535508/200931467-2862a568-6afb-400d-bcc6-0f11a1d88559.png)
 
-![rice-3](https://user-images.githubusercontent.com/101535508/199878452-096292cd-5974-459f-a3a9-5039f95598ea.png)
+![rice-4](https://user-images.githubusercontent.com/101535508/200931457-d4345b76-aef8-4616-8f38-95a1f028328e.png)
+
+![rice-6](https://user-images.githubusercontent.com/101535508/200933517-f6c0c1f1-098b-4940-87da-91f263d0af98.png)
 
 ## How to install
 Clone repository:
