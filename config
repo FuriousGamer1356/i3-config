@@ -1,7 +1,7 @@
 #-------------------------------------------#
 # ======              <>                    #
 # ||                                        #
-# ||=== ||  || |//=\\ || //==\\ ||  || /=== #
+# ||==  ||  || |//=\\ || //==\\ ||  || /=== #
 # ||    ||  || ||     || ||  || ||  || \==\ #
 # ==    \\==// ||     || \\==// \\==// ===/ #
 #                                           #
@@ -19,21 +19,21 @@ font pango:Monospace bold 11
 
 
 # class                  border  border  font    indic.  border
-client.focused           #00a0c0 #00a0c0 #ffffff #30ffff #00a0c0
-client.focused_inactive  #006080 #006080 #ffffff #006080 #006080
-client.unfocused         #006080 #006080 #ffffff #006080 #006080
+client.focused           #202020 #202020 #ffffff #404040 #202020
+client.focused_inactive  #000000 #000000 #777777 #000000 #101010
+client.unfocused         #000000 #000000 #777777 #000000 #101010
 
 # workspace color #
-set $wsoutline           #00a0c0
-set $wscolor             #00a0c0
+set $wsoutline           #202020
+set $wscolor             #202020
 set $wsfontcolor         #ffffff
 set $wsinactiveoutline   #000000
-set $wsinactivecolor     #006080
-set $wsinactivefontcolor #ffffff
+set $wsinactivecolor     #000000
+set $wsinactivefontcolor #777777
 
 # mode color #
 set $modeoutlinecolor    #000000
-set $modecolor           #aaaa00
+set $modecolor           #000000
 set $modefontcolor       #ffffff
 
 
@@ -47,6 +47,7 @@ exec --no-startup-id xinput set-prop 'SYNA7DB5:00 06CB:CD41 Touchpad' 'libinput 
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id dunst
 exec --no-startup-id "nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=0; nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=1"
+exec redshift
 exec picom --no-experimental-backends
 exec flameshot
 
@@ -61,7 +62,7 @@ bindsym $mod+t exec i3-sensible-terminal
 bindsym $mod+w exec sensible-browser
 bindsym $mod+f exec xdg-open ~/
 bindsym $mod+q kill
-bindcode --release 133 exec "if pgrep -x rofi; then killall rofi; else rofi -show drun -normal-window -config ~/.config/i3/config.rasi; fi"
+bindcode --release 133 exec "if pgrep -x rofi; then killall rofi; else rofi -show drun -normal-window -config ~/.config/i3/rofi-config.rasi; fi"
 for_window [class="Rofi"] floating enable
 
 # media #
