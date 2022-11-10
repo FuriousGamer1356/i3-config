@@ -47,6 +47,7 @@ exec --no-startup-id xinput set-prop 'SYNA7DB5:00 06CB:CD41 Touchpad' 'libinput 
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id dunst
 exec --no-startup-id "nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=0; nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=1"
+exec --no-startup-id lxpolkit
 exec redshift
 exec picom --no-experimental-backends
 exec flameshot
