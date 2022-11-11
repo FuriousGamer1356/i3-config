@@ -15,7 +15,7 @@ git clone https://github.com/FuriousGamer1356/i3-config ~/.config/i3
 ```
 Install dependencies:
 ```
-sudo apt install nitrogen rofi flameshot sensible-utils xdg-utils brightnessctl pulseaudio pavucontrol picom dunst lxpolkit
+sudo apt install sensible-utils xdg-utils brightnessctl pulseaudio pavucontrol py3status nitrogen rofi flameshot picom dunst lxpolkit
 ```
 
 The installation is now complete. For the best experience, you can personalize the config file to fit your needs.
