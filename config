@@ -50,6 +50,7 @@ exec --no-startup-id "nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=0;
 exec --no-startup-id lxpolkit
 exec redshift
 exec picom --no-experimental-backends
+exec solaar --window=hide
 exec flameshot
 
 
@@ -67,8 +68,8 @@ bindcode --release 133 exec "if pgrep -x rofi; then killall rofi; else rofi -sho
 for_window [class="Rofi"] floating enable
 
 # media #
-bindsym XF86AudioRaiseVolume  exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%, exec pactl set-sink-mute @DEFAULT_SINK@ false
-bindsym XF86AudioLowerVolume  exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%, exec pactl set-sink-mute @DEFAULT_SINK@ false
+bindsym XF86AudioRaiseVolume  exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2%, exec pactl set-sink-mute @DEFAULT_SINK@ false
+bindsym XF86AudioLowerVolume  exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2%, exec pactl set-sink-mute @DEFAULT_SINK@ false
 bindsym XF86AudioMute         exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 bindsym XF86AudioPlay         exec playerctl play
@@ -223,15 +224,17 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 
 
 bar {
-	status_command i3status -c ~/.config/i3/i3status.conf
-
+	font pango:Monospace bold 11
+	#status_command i3status -c ~/.config/i3/i3status.conf
+	status_command py3status -c ~/.config/i3/statusbar.conf
 	tray_padding 4
 	strip_workspace_numbers yes
+	workspace_min_width 30
 	separator_symbol " / "
 	position top
 
 	colors {
-		separator          #ffffff
+		separator          #777777
 		binding_mode       $modeoutlinecolor  $modecolor       $modefontcolor
 		focused_workspace  $wsoutline         $wscolor         $wsfontcolor
 		active_workspace   $wsinactiveoutline $wsinactivecolor $wsinactivefontcolor
