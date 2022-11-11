@@ -50,7 +50,6 @@ exec --no-startup-id "nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=0;
 exec --no-startup-id lxpolkit
 exec redshift
 exec picom --no-experimental-backends
-exec solaar --window=hide
 exec flameshot
 
 
