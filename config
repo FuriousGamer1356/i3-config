@@ -1,87 +1,56 @@
-#-------------------------------------------#
-# ======              <>                    #
-# ||                                        #
-# ||==  ||  || |//=\\ || //==\\ ||  || /=== #
-# ||    ||  || ||     || ||  || ||  || \==\ #
-# ==    \\==// ||     || \\==// \\==// ===/ #
-#                                           #
-#    https://github.com/FuriousGamer1356    #
-#-------------------------------------------#
+###########################################################
+# Edited by Furious: https://github.com/FuriousGamer1356/ #
+###########################################################
 
+font pango:DejaVu Sans Mono 11
 
-set $mod Mod4
-font pango:Monospace bold 11
+#############
+# autostart #
+#############
 
-
-#------------------#
-#      COLORS      #
-#------------------#
-
-
-# class                  border  border  font    indic.  border
-client.focused           #202020 #202020 #ffffff #404040 #202020
-client.focused_inactive  #000000 #000000 #777777 #000000 #101010
-client.unfocused         #000000 #000000 #777777 #000000 #101010
-
-# workspace color #
-set $wsoutline           #202020
-set $wscolor             #202020
-set $wsfontcolor         #ffffff
-set $wsinactiveoutline   #000000
-set $wsinactivecolor     #000000
-set $wsinactivefontcolor #777777
-
-# mode color #
-set $modeoutlinecolor    #000000
-set $modecolor           #000000
-set $modefontcolor       #ffffff
-
-
-#---------------------#
-#      AUTOSTART      #
-#---------------------#
-
-
-# change the line below or delete it!
-exec --no-startup-id xinput set-prop 'SYNA7DB5:00 06CB:CD41 Touchpad' 'libinput Tapping Enabled' 1
+# required
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id dunst
-exec --no-startup-id "nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=0; nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=1"
 exec --no-startup-id lxpolkit
-exec redshift
-exec picom --no-experimental-backends
+
+# custom
+exec --no-startup-id xinput set-prop 'SYNA7DB5:00 06CB:CD41 Touchpad' 'libinput Tapping Enabled' 1
+exec --no-startup-id nitrogen --set-scaled ~/.config/i3/wallpaper.jpg
 exec flameshot
+exec redshift
 
+###############
+# keybindings #
+###############
 
-#-----------------------#
-#      KEYBINDINGS      #
-#-----------------------#
+set $mod Mod4
+floating_modifier $mod
 
-
-# applications #
+# applications
 bindsym $mod+t exec i3-sensible-terminal
 bindsym $mod+w exec sensible-browser
-bindsym $mod+f exec xdg-open ~/
 bindsym $mod+q kill
-bindcode --release 133 exec "if pgrep -x rofi; then killall rofi; else rofi -show drun -normal-window -config ~/.config/i3/rofi-config.rasi; fi"
+bindcode --release 133 exec "if pgrep -x rofi; then killall rofi; else rofi -show drun -normal-window -config ~/.config/i3/rofi-theme.rasi; fi"
 for_window [class="Rofi"] floating enable
 
-# media #
-bindsym XF86AudioRaiseVolume  exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2%, exec pactl set-sink-mute @DEFAULT_SINK@ false
-bindsym XF86AudioLowerVolume  exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2%, exec pactl set-sink-mute @DEFAULT_SINK@ false
-bindsym XF86AudioMute         exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+# volume (uses pactl)
+set $refresh_py3status killall -SIGUSR1 py3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2%, exec pactl set-sink-mute @DEFAULT_SINK@ false && $refresh_py3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2%, exec pactl set-sink-mute @DEFAULT_SINK@ false && $refresh_py3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_py3status
 
-bindsym XF86AudioPlay         exec playerctl play
-bindsym XF86AudioPause        exec playerctl pause
-bindsym XF86AudioNext         exec playerctl next
-bindsym XF86AudioPrev         exec playerctl previous
+# media (uses playerctl)
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
-# other #
-bindsym XF86MonBrightnessUp   exec --no-startup-id brightnessctl set 10%+ 
+# screen (uses brightnessctl)
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 10%+ 
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
-bindsym Print                 exec --no-startup-id flameshot gui
+bindsym Print exec --no-startup-id flameshot gui
 
-# change focus #
+# focus windows
 bindsym $mod+h focus left 
 bindsym $mod+j focus down
 bindsym $mod+k focus up
@@ -91,7 +60,7 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# move focused window #
+# move windows
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
@@ -101,18 +70,17 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# other window management #
+# window layouts
 bindsym $mod+z split h
 bindsym $mod+v split v
-#bindsym $mod+Shift+f fullscreen toggle
 bindsym $mod+Tab layout toggle all
-bindsym $mod+Shift+f floating toggle
+bindsym $mod+shift+f floating toggle
 
-# restart / reload i3 #
+# i3 management
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
-# resize mode #
+# resize mode
 mode "RESIZE" {
 	set $size 10
         bindsym h resize shrink width $size px or $size ppt
@@ -131,7 +99,7 @@ mode "RESIZE" {
 }
 bindsym $mod+r mode "RESIZE"
 
-# logout mode #
+# logout mode
 set $logout "SLEEP (1), LOG OUT (2), REBOOT (3), SHUTDOWN (4)"
 mode $logout {
 	bindsym 1 exec --no-startup-id systemctl suspend, mode "default" 
@@ -144,55 +112,43 @@ mode $logout {
 }
 bindsym $mod+e mode $logout
 
+##########
+# colors #
+##########
 
-#----------------------#
-#      WORKSPACES      #
-#----------------------#
+# windows               border  border  font    indic.  border
+client.focused          #202020 #202020 #ffffff #303030 #202020
+client.focused_inactive #000000 #000000 #777777 #000000 #000000
+client.unfocused        #000000 #000000 #777777 #000000 #000000
 
+# workspace color
+set $wsoutline           #202020
+set $wscolor             #202020
+set $wsfontcolor         #ffffff
+set $wsinactiveoutline   #000000
+set $wsinactivecolor     #000000
+set $wsinactivefontcolor #777777
 
-# To find your monitor's name, run 'xrandr --listmonitors' in a terminal.
-set $monitor_1 HDMI-1
-set $monitor_2 eDP-1
+# mode color
+set $modeoutlinecolor    #000000
+set $modecolor           #000000
+set $modefontcolor       #ffffff
 
-exec --no-startup-id xrandr --output $monitor_1 --auto; xrandr --output $monitor_1 --left-of $monitor_2
+##############
+# workspaces #
+##############
 
-# select primary display #
-set $select_display "DISPLAY: (1), (2), (A)LL"
-mode $select_display {
-	bindsym 1 exec --no-startup-id "xrandr --output $monitor_2 --off; xrandr --output $monitor_1 --auto", mode "default"
-	bindsym 2 exec --no-startup-id "xrandr --output $monitor_1 --off; xrandr --output $monitor_2 --auto", mode "default"
-	bindsym a exec --no-startup-id "xrandr --output $monitor_1 --auto; xrandr --output $monitor_2 --auto; xrandr --output $monitor_1 --left-of $monitor_2", mode "default"
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
 
-	bindsym Escape mode "default"
-	bindsym $mod+p mode "default"
-}
-bindsym $mod+p mode $select_display
-
-# workspace names #
-set $ws1 "1:I"
-set $ws2 "2:II"
-set $ws3 "3:III"
-set $ws4 "4:IV"
-set $ws5 "5:V"
-set $ws6 "6:VI"
-set $ws7 "7:VII"
-set $ws8 "8:VIII"
-set $ws9 "9:IX"
-set $ws10 "10:X"
-
-# assign workspaces to monitors #
-workspace $ws1 output $monitor_1
-workspace $ws2 output $monitor_1
-workspace $ws3 output $monitor_1
-workspace $ws4 output $monitor_1
-workspace $ws5 output $monitor_1
-workspace $ws6 output $monitor_2
-workspace $ws7 output $monitor_2
-workspace $ws8 output $monitor_2
-workspace $ws9 output $monitor_2
-workspace $ws10 output $monitor_2
-
-# switch to workspace #
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
@@ -204,7 +160,6 @@ bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 
-# move focused container to workspace #
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3
@@ -216,27 +171,18 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
-
-#---------------#
-#      BAR      #
-#---------------#
-
+#######
+# bar #
+#######
 
 bar {
-	font pango:Monospace bold 11
-	#status_command i3status -c ~/.config/i3/i3status.conf
-	status_command py3status -c ~/.config/i3/statusbar.conf
-	tray_padding 4
-	strip_workspace_numbers yes
-	workspace_min_width 30
-	separator_symbol " / "
-	position top
-
+        status_command py3status -c ~/.config/i3/status-bar.conf
+	separator_symbol "/"
 	colors {
 		separator          #777777
 		binding_mode       $modeoutlinecolor  $modecolor       $modefontcolor
 		focused_workspace  $wsoutline         $wscolor         $wsfontcolor
 		active_workspace   $wsinactiveoutline $wsinactivecolor $wsinactivefontcolor
 		inactive_workspace $wsinactiveoutline $wsinactivecolor $wsinactivefontcolor
-	}
+	}	
 }
