@@ -14,10 +14,14 @@ exec --no-startup-id dunst
 exec --no-startup-id lxpolkit
 
 # custom
-exec --no-startup-id xinput set-prop 'SYNA7DB5:00 06CB:CD41 Touchpad' 'libinput Tapping Enabled' 1
-exec --no-startup-id nitrogen --set-scaled ~/.config/i3/wallpaper.jpg
+#exec --no-startup-id nitrogen --set-scaled ~/.config/i3/wallpaper.jpg
 exec flameshot
 exec redshift
+
+# for my machine
+exec --no-startup-id xrandr --output eDP-1 --right-of HDMI-1
+exec --no-startup-id xinput set-prop 'SYNA7DB5:00 06CB:CD41 Touchpad' 'libinput Tapping Enabled' 1
+exec --no-startup-id nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=0 && nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=1
 
 ###############
 # keybindings #
@@ -117,13 +121,13 @@ bindsym $mod+e mode $logout
 ##########
 
 # windows               border  border  font    indic.  border
-client.focused          #202020 #202020 #ffffff #303030 #202020
+client.focused          #000000 #000000 #ffffff #202020 #000000
 client.focused_inactive #000000 #000000 #777777 #000000 #000000
 client.unfocused        #000000 #000000 #777777 #000000 #000000
 
 # workspace color
-set $wsoutline           #202020
-set $wscolor             #202020
+set $wsoutline           #000000
+set $wscolor             #000000
 set $wsfontcolor         #ffffff
 set $wsinactiveoutline   #000000
 set $wsinactivecolor     #000000
@@ -138,17 +142,19 @@ set $modefontcolor       #ffffff
 # workspaces #
 ##############
 
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+# workspace names
+set $ws1 "1:[ONE]"
+set $ws2 "2:[TWO]"
+set $ws3 "3:[THREE]"
+set $ws4 "4:[FOUR]"
+set $ws5 "5:[FIVE]"
+set $ws6 "6:[SIX]"
+set $ws7 "7:[SEVEN]"
+set $ws8 "8:[EIGHT]"
+set $ws9 "9:[NINE]"
+set $ws10 "10:[TEN]"
 
+# switch to workspace
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
@@ -160,6 +166,7 @@ bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 
+# move window to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3
@@ -177,7 +184,8 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 
 bar {
         status_command py3status -c ~/.config/i3/status-bar.conf
-	separator_symbol "/"
+	separator_symbol "-"
+	strip_workspace_numbers true
 	colors {
 		separator          #777777
 		binding_mode       $modeoutlinecolor  $modecolor       $modefontcolor
