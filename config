@@ -85,7 +85,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # resize mode
-mode "RESIZE" {
+mode "[RESIZE]" {
 	set $size 10
         bindsym h resize shrink width $size px or $size ppt
         bindsym j resize grow height $size px or $size ppt
@@ -101,10 +101,10 @@ mode "RESIZE" {
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
 }
-bindsym $mod+r mode "RESIZE"
+bindsym $mod+r mode "[RESIZE]"
 
 # logout mode
-set $logout "SLEEP (1), LOG OUT (2), REBOOT (3), SHUTDOWN (4)"
+set $logout "[SLEEP 1, LOG OUT 2, REBOOT 3, SHUTDOWN 4]"
 mode $logout {
 	bindsym 1 exec --no-startup-id systemctl suspend, mode "default" 
 	bindsym 2 exec --no-startup-id i3-msg exit, mode "default"
