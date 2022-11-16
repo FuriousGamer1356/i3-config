@@ -15,8 +15,8 @@ exec --no-startup-id lxpolkit
 
 # custom
 #exec --no-startup-id nitrogen --set-scaled ~/.config/i3/wallpaper.jpg
-exec flameshot
-exec redshift
+exec --no-startup-id flameshot
+exec --no-startup-id redshift
 
 # for my machine
 exec --no-startup-id xrandr --output eDP-1 --right-of HDMI-1
@@ -34,6 +34,7 @@ floating_modifier $mod
 bindsym $mod+t exec i3-sensible-terminal
 bindsym $mod+w exec sensible-browser
 bindsym $mod+q kill
+# if rofi is active, kill it; if rofi isn't active, start it
 bindcode --release 133 exec "if pgrep -x rofi; then killall rofi; else rofi -show drun -normal-window -config ~/.config/i3/rofi-theme.rasi; fi"
 for_window [class="Rofi"] floating enable
 
@@ -116,6 +117,12 @@ mode $logout {
 }
 bindsym $mod+e mode $logout
 
+# num / caps lock indicator refresh
+bindsym Caps_Lock exec $refresh_py3status
+bindsym --release Caps_Lock exec $refresh_py3status
+bindsym Num_Lock exec $refresh_py3status
+bindsym --release Num_Lock exec $refresh_py3status
+
 ##########
 # colors #
 ##########
@@ -134,8 +141,8 @@ set $wsinactivecolor     #000000
 set $wsinactivefontcolor #777777
 
 # mode color
-set $modeoutlinecolor    #000000
-set $modecolor           #000000
+set $modeoutlinecolor    #101010
+set $modecolor           #101010
 set $modefontcolor       #ffffff
 
 ##############
@@ -143,16 +150,16 @@ set $modefontcolor       #ffffff
 ##############
 
 # workspace names
-set $ws1 "1:[ONE]"
-set $ws2 "2:[TWO]"
-set $ws3 "3:[THREE]"
-set $ws4 "4:[FOUR]"
-set $ws5 "5:[FIVE]"
-set $ws6 "6:[SIX]"
-set $ws7 "7:[SEVEN]"
-set $ws8 "8:[EIGHT]"
-set $ws9 "9:[NINE]"
-set $ws10 "10:[TEN]"
+set $ws1 "1:[I]"
+set $ws2 "2:[II]"
+set $ws3 "3:[III]"
+set $ws4 "4:[IV]"
+set $ws5 "5:[V]"
+set $ws6 "6:[VI]"
+set $ws7 "7:[VII]"
+set $ws8 "8:[VIII]"
+set $ws9 "9:[IX]"
+set $ws10 "10:[X]"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -183,14 +190,19 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 #######
 
 bar {
-        status_command py3status -c ~/.config/i3/status-bar.conf
-	separator_symbol "-"
+        status_command py3status -c ~/.config/i3/status-bar.conf -i ~/.config/i3/modules
+
+	position top
+	separator_symbol "•"
 	strip_workspace_numbers true
 	colors {
-		separator          #777777
+		separator          #444444
+		focused_separator  #777777
 		binding_mode       $modeoutlinecolor  $modecolor       $modefontcolor
 		focused_workspace  $wsoutline         $wscolor         $wsfontcolor
 		active_workspace   $wsinactiveoutline $wsinactivecolor $wsinactivefontcolor
 		inactive_workspace $wsinactiveoutline $wsinactivecolor $wsinactivefontcolor
+		statusline         $inactivefontcolor
+		focused_statusline $wsfontcolor
 	}	
 }
