@@ -21,13 +21,13 @@ configuration {
 
 window {
 	border-radius:                  0px;
-	width:			    	25%;
-	height:                         50%;
+	width:			    	10%;
+	height:                         97.6%;
 	padding: 			4px;
 	border:                         2;
-	location:			south west;
-	anchor:                         south west;
-	y-offset:                       -24px;
+	location:			north west;
+	anchor:                         north west;
+	y-offset:                       24px;
 }
 
 prompt {
@@ -57,8 +57,8 @@ inputbar {
 }
 
 listview {
-    	columns:                        8;
-    	lines:	                        4;
+    	columns:                        2;
+    	lines:	                        12;
     	cycle:                          false;
     	dynamic:                        true;
     	layout:                         vertical;	
@@ -76,7 +76,7 @@ element {
 }
 
 element-icon {
-    	size:                           48px;
+    	size:                           3.9%;
     	horizontal-align:	 	0.5;
 }
 
