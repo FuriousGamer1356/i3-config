@@ -202,7 +202,7 @@ bar {
 		focused_workspace  $wsoutline         $wscolor         $wsfontcolor
 		active_workspace   $wsinactiveoutline $wsinactivecolor $wsinactivefontcolor
 		inactive_workspace $wsinactiveoutline $wsinactivecolor $wsinactivefontcolor
-		statusline         $inactivefontcolor
+		statusline         $wsinactivefontcolor
 		focused_statusline $wsfontcolor
-	}	
+	}
 }
