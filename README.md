@@ -1,11 +1,11 @@
 # My i3wm config
 This config was designed to work out-of-the-box. All you have to do is follow the installation guide below.
 
-[screenshot-1](screenshots/screenshot-1)
+![screenshot-1](screenshots/screenshot-1.jpg)
 
-[screenshot-2](screenshots/screenshot-2)
+![screenshot-2](screenshots/screenshot-2.jpg)
 
-[screenshot-3](screenshots/screenshot-3)
+![screenshot-3](screenshots/screenshot-3.jpg)
 
 ## How to install
 Clone repository:
