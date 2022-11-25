@@ -19,7 +19,7 @@ exec --no-startup-id flameshot
 exec --no-startup-id redshift
 
 # for my machine
-exec --no-startup-id xrandr --output eDP-1 --right-of HDMI-1
+exec --no-startup-id xrandr --output eDP-1 --right-of HDMI-A-0
 exec --no-startup-id xinput set-prop 'SYNA7DB5:00 06CB:CD41 Touchpad' 'libinput Tapping Enabled' 1
 exec --no-startup-id nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=0 && nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=1
 
