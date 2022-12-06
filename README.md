@@ -7,6 +7,8 @@ This config was designed to work out-of-the-box. All you have to do is follow th
 
 ![screenshot-3](screenshots/screenshot-3.jpg)
 
+*in case if anyone wants to know, the terminals in the screenshots above are gnome-terminals.*
+
 ## How to install
 
 ### Step 1: install dependencies
