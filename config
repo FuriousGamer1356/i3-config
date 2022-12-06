@@ -10,7 +10,7 @@ font pango:DejaVu Sans Mono 11
 
 # required
 exec --no-startup-id dex --autostart --environment i3
-exec --no-startup-id dunst
+exec --no-startup-id dunst -config ~/.config/i3/dunstrc
 exec --no-startup-id lxpolkit
 
 # custom
@@ -19,7 +19,7 @@ exec --no-startup-id flameshot
 exec --no-startup-id redshift
 
 # for my machine
-exec --no-startup-id xrandr --output eDP-1 --right-of HDMI-A-0
+exec --no-startup-id xrandr --output eDP --right-of HDMI-A-0
 exec --no-startup-id xinput set-prop 'SYNA7DB5:00 06CB:CD41 Touchpad' 'libinput Tapping Enabled' 1
 exec --no-startup-id nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=0 && nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=1
 
@@ -38,11 +38,11 @@ bindsym $mod+q kill
 bindcode --release 133 exec "if pgrep -x rofi; then killall rofi; else rofi -show drun -normal-window -config ~/.config/i3/rofi-theme.rasi; fi"
 for_window [class="Rofi"] floating enable
 
-# volume (uses pactl)
+# volume (uses amixer)
 set $refresh_py3status killall -SIGUSR1 py3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%, exec pactl set-sink-mute @DEFAULT_SINK@ false && $refresh_py3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%, exec pactl set-sink-mute @DEFAULT_SINK@ false && $refresh_py3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_py3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id bash ~/.config/i3/scripts/volume.sh up && $refresh_py3status
+bindsym XF86AudioLowerVolume exec --no-startup-id bash ~/.config/i3/scripts/volume.sh down && $refresh_py3status
+bindsym XF86AudioMute exec --no-startup-id bash ~/.config/i3/scripts/volume.sh mute && $refresh_py3status
 
 # media (uses playerctl)
 bindsym XF86AudioPlay exec playerctl play
@@ -51,8 +51,8 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # screen (uses brightnessctl)
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 10%+ 
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/brightness.sh up
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/brightness.sh down
 bindsym Print exec --no-startup-id flameshot gui
 
 # focus windows
@@ -86,7 +86,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # resize mode
-mode "RESIZE" {
+mode "resize" {
 	set $size 10
         bindsym h resize shrink width $size px or $size ppt
         bindsym j resize grow height $size px or $size ppt
@@ -102,15 +102,16 @@ mode "RESIZE" {
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
 }
-bindsym $mod+r mode "RESIZE"
+bindsym $mod+r mode "resize"
 
 # logout mode
-set $logout "SLEEP [1], LOG OUT [2], REBOOT [3], SHUTDOWN [4]"
+set $logout "(l)ogout, s(u)spend, (h)ibernate, (r)eboot, (s)hutdown"
 mode $logout {
-	bindsym 1 exec --no-startup-id systemctl suspend, mode "default" 
-	bindsym 2 exec --no-startup-id i3-msg exit, mode "default"
-	bindsym 3 exec --no-startup-id systemctl reboot, mode "default"
-	bindsym 4 exec --no-startup-id systemctl poweroff, mode "default"
+	bindsym l exec --no-startup-id i3-msg exit, mode "default"
+	bindsym u exec --no-startup-id systemctl suspend, mode "default" 
+	bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+	bindsym r exec --no-startup-id systemctl reboot, mode "default"
+	bindsym s exec --no-startup-id systemctl poweroff, mode "default"
 
 	bindsym Escape mode "default"
 	bindsym $mod+e mode "default"
@@ -128,38 +129,50 @@ bindsym --release Num_Lock exec $refresh_py3status
 ##########
 
 # windows               border  border  font    indic.  border
-client.focused          #000000 #000000 #ffffff #202020 #000000
-client.focused_inactive #000000 #000000 #777777 #000000 #000000
-client.unfocused        #000000 #000000 #777777 #000000 #000000
+client.focused          #272727 #272727 #ffffff #545454 #272727
+client.focused_inactive #131313 #131313 #777777 #000000 #131313
+client.unfocused        #131313 #131313 #777777 #000000 #131313
 
 # workspace color
-set $wsoutline           #000000
-set $wscolor             #000000
-set $wsfontcolor         #ffffff
-set $wsinactiveoutline   #000000
-set $wsinactivecolor     #000000
-set $wsinactivefontcolor #777777
+set $wsactivebgcol        #272727
+set $wsactiveoutlinecol   #272727
+set $wsactivefontcol      #ffffff
+set $wsinactivebgcol      #272727
+set $wsinactiveoutlinecol #272727
+set $wsinactivefontcol    #777777
 
 # mode color
-set $modeoutlinecolor    #101010
-set $modecolor           #101010
-set $modefontcolor       #ffffff
+set $modeoutlinecol       #272727
+set $modebgcol            #272727
+set $modefontcol          #ffffff
 
 ##############
 # workspaces #
 ##############
 
 # workspace names
-set $ws1 "1:[I]"
-set $ws2 "2:[II]"
-set $ws3 "3:[III]"
-set $ws4 "4:[IV]"
-set $ws5 "5:[V]"
-set $ws6 "6:[VI]"
-set $ws7 "7:[VII]"
-set $ws8 "8:[VIII]"
-set $ws9 "9:[IX]"
-set $ws10 "10:[X]"
+set $ws1 "1:I"
+set $ws2 "2:II"
+set $ws3 "3:III"
+set $ws4 "4:IV"
+set $ws5 "5:V"
+set $ws6 "6:VI"
+set $ws7 "7:VII"
+set $ws8 "8:VIII"
+set $ws9 "9:IX"
+set $ws10 "10:X"
+
+# assign workspace to monitor
+workspace $ws1 output HDMI-A-0
+workspace $ws2 output eDP
+workspace $ws3 output HDMI-A-0
+workspace $ws4 output eDP
+workspace $ws5 output HDMI-A-0
+workspace $ws6 output eDP
+workspace $ws7 output HDMI-A-0
+workspace $ws8 output eDP
+workspace $ws9 output HDMI-A-0
+workspace $ws10 output eDP
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -193,16 +206,22 @@ bar {
         status_command py3status -c ~/.config/i3/status-bar.conf -i ~/.config/i3/modules
 	
 	position top
-	separator_symbol "•"
+	separator_symbol "|" 
 	strip_workspace_numbers true
 	colors {
-		separator          #444444
+		# focused
+		focused_workspace  $wsactiveoutlinecol $wsactivebgcol $wsactivefontcol
+		active_workspace   $wsinactiveoutlinecol $wsinactivebgcol $wsinactivefontcol
 		focused_separator  #777777
-		binding_mode       $modeoutlinecolor  $modecolor       $modefontcolor
-		focused_workspace  $wsoutline         $wscolor         $wsfontcolor
-		active_workspace   $wsinactiveoutline $wsinactivecolor $wsinactivefontcolor
-		inactive_workspace $wsinactiveoutline $wsinactivecolor $wsinactivefontcolor
-		statusline         $wsinactivefontcolor
-		focused_statusline $wsfontcolor
+		focused_statusline #ffffff
+
+		# unfocused
+		separator          #383838
+		statusline         #777777
+		inactive_workspace $wsinactiveoutlinecol $wsinactivebgcol $wsinactivefontcol
+
+		# other
+		binding_mode       $modeoutlinecol $modebgcol $modefontcol
+		background         #272727
 	}
 }
