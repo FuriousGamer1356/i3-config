@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Variables
+monitor_left=$1
+monitor_right=$2
+monitor_primary=$3
+
+# If $1, $2, and $3 are empty
+if [[ -z $1 ]] || [[ -z $2 ]] || [[ -z $3 ]]; then
+	echo "Must be run from i3wm with Mod+Shift+P."
+	exit 1
+fi
+
+# Get active monitors
+monitors="`xrandr --listmonitors | grep -v "Monitor" | cut -d ' ' -f6`"
+
+# If both monitors are active
+if [[ $monitors =~ $monitor_left ]] && [[ $monitors =~ $monitor_right ]]; then
+	xrandr --output $monitor_left --off
+	xrandr --output $monitor_right --off
+	xrandr --output $monitor_primary --auto
+	sleep 0.5
+	nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=0 || nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=1
+
+# If primary monitor is active
+elif [[ $monitors == $monitor_primary ]]; then
+	xrandr --output $monitor_left --auto
+	xrandr --output $monitor_right --auto
+	xrandr --output $monitor_left --left-of $monitor_right
+	sleep 0.5
+	nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=0 && nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=1
+fi
