@@ -2,47 +2,6 @@
 # Edited by Furious: https://github.com/FuriousGamer1356/ #
 ###########################################################
 
-######## sections #########
-#                         #
-# Line 17.....user config #
-# Line 33.....autostart   #
-# Line 47.....keybindings #
-# Line 152....colors      #
-# Line 176....workspaces  #
-# Line 228....bar         #
-#                         #
-###########################
-
-###############
-# user config #
-###############
-
-# monitor stuff
-set $leftmonitor HDMI-A-0
-set $rightmonitor eDP
-set $primarymonitor eDP
-
-bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/i3-switch-monitors $leftmonitor $rightmonitor $primarymonitor
-
-# autostart
-exec --no-startup-id xrandr --output $rightmonitor --right-of $leftmonitor
-exec --no-startup-id xinput set-prop 'SYNA7DB5:00 06CB:CD41 Touchpad' 'libinput Tapping Enabled' 1
-exec --no-startup-id nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=0 && nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=1
-
-#############
-# autostart #
-#############
-
-# required
-exec --no-startup-id dex --autostart --environment i3
-exec --no-startup-id dunst -config ~/.config/i3/dunstrc
-exec --no-startup-id lxpolkit
-
-# custom
-#exec --no-startup-id nitrogen --set-scaled ~/.config/i3/wallpaper.jpg
-exec --no-startup-id flameshot
-exec --no-startup-id redshift
-
 ###############
 # keybindings #
 ###############
@@ -51,33 +10,10 @@ set $mod Mod4
 floating_modifier $mod
 
 # applications
-bindsym $mod+t exec i3-sensible-terminal
-bindsym $mod+w exec sensible-browser
 bindsym $mod+q kill
+bindsym $mod+t exec kitty
+bindsym $mod+w exec firefox
 bindsym $mod+s exec rofi -show drun -config ~/.config/i3/rofi-theme.rasi
-
-# volume (uses amixer)
-set $refresh_py3status killall -SIGUSR1 py3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/scripts/volume.sh up && $refresh_py3status
-bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/scripts/volume.sh down && $refresh_py3status
-bindsym XF86AudioMute exec --no-startup-id ~/.config/i3/scripts/volume.sh mute && $refresh_py3status
-bindsym $mod+period exec --no-startup-id ~/.config/i3/scripts/volume.sh up && $refresh_py3status
-bindsym $mod+comma exec --no-startup-id ~/.config/i3/scripts/volume.sh down && $refresh_py3status
-bindsym $mod+m exec --no-startup-id ~/.config/i3/scripts/volume.sh mute && $refresh_py3status
-
-# media (uses playerctl)
-bindsym XF86AudioPlay exec playerctl play
-bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
-
-# screen (uses brightnessctl)
-bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/brightness.sh up
-bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/brightness.sh down
-bindsym Print exec --no-startup-id flameshot gui
-bindsym $mod+Shift+period exec --no-startup-id ~/.config/i3/scripts/brightness.sh up
-bindsym $mod+Shift+comma exec --no-startup-id ~/.config/i3/scripts/brightness.sh down
-bindsym $mod+p exec --no-startup-id flameshot gui
 
 # focus windows
 bindsym $mod+h focus left 
@@ -103,7 +39,7 @@ bindsym $mod+Shift+Right move right
 bindsym $mod+z split h
 bindsym $mod+v split v
 bindsym $mod+Tab layout toggle all
-bindsym $mod+shift+f floating toggle
+bindsym $mod+Shift+f floating toggle
 
 # i3 management
 bindsym $mod+Shift+c reload
@@ -111,7 +47,7 @@ bindsym $mod+Shift+r restart
 
 # resize mode
 mode "resize" {
-	set $size 10
+	set $size 5
         bindsym h resize shrink width $size px or $size ppt
         bindsym j resize grow height $size px or $size ppt
         bindsym k resize shrink height $size px or $size ppt
@@ -142,37 +78,72 @@ mode $exit {
 }
 bindsym $mod+e mode $exit
 
-# num / caps lock indicator refresh
-bindsym --release Caps_Lock exec $refresh_py3status
-bindsym --release Num_Lock exec $refresh_py3status
+# num/caps lock indicator
+bindsym --release Caps_Lock exec py3-cmd refresh "keyboard_locks caps"
+bindsym --release Num_Lock exec py3-cmd refresh "keyboard_locks num"
+
+# volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/scripts/volume.sh up
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/scripts/volume.sh down
+bindsym XF86AudioMute exec --no-startup-id ~/.config/i3/scripts/volume.sh mute
+bindsym $mod+period exec --no-startup-id ~/.config/i3/scripts/volume.sh up
+bindsym $mod+comma exec --no-startup-id ~/.config/i3/scripts/volume.sh down
+bindsym $mod+m exec --no-startup-id ~/.config/i3/scripts/volume.sh mute
+
+# media
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# screen
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/brightness.sh up
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/brightness.sh down
+bindsym Print exec --no-startup-id flameshot gui
+bindsym $mod+Shift+period exec --no-startup-id ~/.config/i3/scripts/brightness.sh up
+bindsym $mod+Shift+comma exec --no-startup-id ~/.config/i3/scripts/brightness.sh down
+bindsym $mod+p exec --no-startup-id flameshot gui
 
 ##########
 # colors #
 ##########
 
-font pango:DejaVu Sans Mono 11
+font pango:JetBrains mono 11
 
-# windows               border  border  font    indic.  border
-client.focused          #272727 #272727 #ffffff #545454 #272727
-client.focused_inactive #131313 #131313 #777777 #000000 #131313
-client.unfocused        #131313 #131313 #777777 #000000 #131313
+# windows      border  border  font    indic.  border
+client.focused #272727 #272727 #ffffff #545454 #272727
+client.focused_inactive #272727 #272727 #777777 #00a0a0 #272727
+client.unfocused #121212 #121212 #777777 #121212 #121212
 
-# workspace color
-set $wsactivebgcol        #272727
-set $wsactiveoutlinecol   #272727
-set $wsactivefontcol      #ffffff
-set $wsinactivebgcol      #272727
+# focused workspace
+set $wsfocusedbgcol #272727
+set $wsfocusedoutlinecol #272727
+set $wsfocusedfontcol #ffffff
+
+# active workspace
+set $wsactivebgcol #272727
+set $wsactiveoutlinecol #272727
+set $wsactivefontcol #ffffff
+
+# inactive workspace
+set $wsinactivebgcol #272727
 set $wsinactiveoutlinecol #272727
-set $wsinactivefontcol    #777777
+set $wsinactivefontcol #777777
 
 # mode color
-set $modeoutlinecol       #272727
-set $modebgcol            #272727
-set $modefontcol          #ffffff
+set $modeoutlinecol #272727
+set $modebgcol #272727
+set $modefontcol #ffffff
 
 ##############
 # workspaces #
 ##############
+
+# monitor control
+set $leftmonitor HDMI-A-0
+set $rightmonitor eDP
+set $primarymonitor eDP
+bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/i3-switch-monitors $leftmonitor $rightmonitor $primarymonitor
 
 # workspace names
 set $ws1 "1:I"
@@ -188,14 +159,14 @@ set $ws10 "10:X"
 
 # assign workspace to monitor
 workspace $ws1 output $leftmonitor
-workspace $ws2 output $rightmonitor
+workspace $ws2 output $leftmonitor
 workspace $ws3 output $leftmonitor
-workspace $ws4 output $rightmonitor
+workspace $ws4 output $leftmonitor
 workspace $ws5 output $leftmonitor
 workspace $ws6 output $rightmonitor
-workspace $ws7 output $leftmonitor
+workspace $ws7 output $rightmonitor
 workspace $ws8 output $rightmonitor
-workspace $ws9 output $leftmonitor
+workspace $ws9 output $rightmonitor
 workspace $ws10 output $rightmonitor
 
 # switch to workspace
@@ -222,31 +193,40 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
+#############
+# autostart #
+#############
+
+exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id dunst -config ~/.config/i3/dunstrc
+exec --no-startup-id lxpolkit
+exec --no-startup-id flameshot
+exec --no-startup-id redshift
+exec --no-startup-id xrandr --output $rightmonitor --right-of $leftmonitor
+exec --no-startup-id xinput set-prop "SYNA7DB5:00 06CB:CD41 Touchpad" "libinput Tapping Enabled" 1
+exec --no-startup-id nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=0 && nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=1
+
 #######
 # bar #
 #######
 
 bar {
         status_command py3status -c ~/.config/i3/status-bar.conf -i ~/.config/i3/modules
-	
 	position top
 	separator_symbol "|" 
 	strip_workspace_numbers true
 	tray_output $primarymonitor
+
 	colors {
-		# focused
-		focused_workspace  $wsactiveoutlinecol $wsactivebgcol $wsactivefontcol
-		focused_separator  #ffffff
-		focused_statusline #ffffff
-
-		# unfocused
-		separator          #777777
-		statusline         #777777
-		inactive_workspace $wsinactiveoutlinecol $wsinactivebgcol $wsinactivefontcol
+		focused_workspace  $wsfocusedoutlinecol $wsfocusedbgcol $wsfocusedfontcol
 		active_workspace   $wsinactiveoutlinecol $wsinactivebgcol $wsinactivefontcol
-
-		# other
+		inactive_workspace $wsinactiveoutlinecol $wsinactivebgcol $wsinactivefontcol
 		binding_mode       $modeoutlinecol $modebgcol $modefontcol
+		focused_separator  #ffffff
+		separator          #777777
+		focused_statusline #ffffff
+		statusline         #777777
+		focused_background #272727
 		background         #272727
 	}
 }
