@@ -27,11 +27,13 @@ case $1 in
 	# Up the volume (+ 5%)
 	amixer -D pulse sset Master 5%+ > /dev/null
 	send_notification
+	py3-cmd refresh volume_status
 	;;
     down)
 	amixer -D pulse set Master on > /dev/null
 	amixer -D pulse sset Master 5%- > /dev/null
 	send_notification
+	py3-cmd refresh volume_status
 	;;
     mute)
     	# Toggle mute
