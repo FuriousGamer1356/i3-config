@@ -2,6 +2,8 @@
 # Edited by Furious: https://github.com/FuriousGamer1356/ #
 ###########################################################
 
+gaps inner 20
+
 ###############
 # keybindings #
 ###############
@@ -110,29 +112,29 @@ bindsym $mod+p exec --no-startup-id flameshot gui
 
 font pango:JetBrains mono 11
 
-# windows      border  border  font    indic.  border
-client.focused #272727 #272727 #ffffff #545454 #272727
-client.focused_inactive #272727 #272727 #777777 #545454 #272727
-client.unfocused #121212 #121212 #777777 #121212 #121212
+# windows               border  border  font    indic.  border
+client.focused          #272727 #272727 #ffffff #545454 #272727
+client.focused_inactive #121212 #121212 #777777 #272727 #121212
+client.unfocused        #121212 #121212 #777777 #272727 #121212
 
 # focused workspace
-set $wsfocusedbgcol #272727
-set $wsfocusedoutlinecol #272727
+set $wsfocusedbgcol #121212
+set $wsfocusedoutlinecol #121212
 set $wsfocusedfontcol #ffffff
 
 # active workspace
-set $wsactivebgcol #272727
-set $wsactiveoutlinecol #272727
+set $wsactivebgcol #121212
+set $wsactiveoutlinecol #121212
 set $wsactivefontcol #ffffff
 
 # inactive workspace
-set $wsinactivebgcol #272727
-set $wsinactiveoutlinecol #272727
+set $wsinactivebgcol #121212
+set $wsinactiveoutlinecol #121212
 set $wsinactivefontcol #777777
 
 # mode color
-set $modeoutlinecol #272727
-set $modebgcol #272727
+set $modeoutlinecol #121212
+set $modebgcol #121212
 set $modefontcol #ffffff
 
 ##############
@@ -200,6 +202,7 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id dunst -config ~/.config/i3/dunstrc
 exec --no-startup-id lxpolkit
+exec --no-startup-id picom
 exec --no-startup-id flameshot
 exec --no-startup-id redshift
 exec --no-startup-id xrandr --output $rightmonitor --right-of $leftmonitor
@@ -226,7 +229,7 @@ bar {
 		separator          #777777
 		focused_statusline #ffffff
 		statusline         #777777
-		focused_background #272727
-		background         #272727
+		focused_background #121212
+		background         #121212
 	}
 }
