@@ -1,5 +1,5 @@
 # My i3wm config
-This config was designed to work out-of-the-box and be lightweight. All you have to do is follow the installation guide below.
+This config was designed to work out-of-the-box. All you have to do is follow the installation guide below.
 
 ![screenshot-1](screenshots/screenshot-1.jpg)
 
@@ -15,14 +15,14 @@ This config was designed to work out-of-the-box and be lightweight. All you have
 
 **Debian:**
 ```
-$ sudo apt install sensible-utils xdg-utils brightnessctl pulseaudio pavucontrol py3status nitrogen rofi dunst lxpolkit fonts-jetbrains-mono python3-pip playerctl materia-gtk-theme lxappearance
+$ sudo apt install brightnessctl pulseaudio pavucontrol py3status nitrogen rofi dunst lxpolkit fonts-jetbrains-mono python3-pip playerctl materia-gtk-theme lxappearance
 $ pip install pytz tzlocal
 ```
 
 **Arch:**
 ```
-$ sudo pacman -S xdg-utils brightnessctl pulseaudio pavucontrol py3status nitrogen rofi dunst ttf-jetbrains-mono python-pip playerctl materia-gtk-theme lxappearance
-$ yay -S sensible-utils lxpolkit  # You can use a different AUR helper, if you choose so.
+$ sudo pacman -S brightnessctl pulseaudio pavucontrol py3status nitrogen rofi dunst ttf-jetbrains-mono python-pip playerctl materia-gtk-theme lxappearance
+$ yay -S lxpolkit  # You can use a different AUR helper, if you choose so.
 $ pip install pytz tzlocal
 ```
 
@@ -42,26 +42,14 @@ $ git clone https://github.com/FuriousGamer1356/i3-config ~/.config/i3/
 
 ### Step 3: finishing touches
 
-You're pretty much done! To improve your experience, open `lxappearance` and set the theme to `materia-dark`, and the font to `JetBrains Mono`.
+You are now done with the installation. To improve your experience, open `lxappearance` and set the theme to `Materia Dark`. You'll also want to change the font to `JetBrains Mono`.
 
 Enjoy! :tada:
 
 ## How to remove
 
-If you decide not to use this config anymore and want it off of your system, run these commands.
+If you choose not to use this config anymore, run this command.
 
-**Debian:**
 ```
-$ sudo apt remove brightnessctl py3status fonts-jetbrains-mono playerctl materia-gtk-theme lxappearance
-$ sudo apt autoremove
-$ pip uninstall pytz tzlocal
-$ rm -rf ~/.config/i3/ ~/.fonts/Font\ Awesome*
-```
-
-**Arch:**
-```
-$ pip uninstall pytz tzlocal
-$ sudo pacman -R py3status nitrogen ttf-jetbrains-mono playerctl materia-gtk-theme lxappearance
-$ yay -R sensible-utils lxpolkit  # You can use a different AUR helper, if you choose so.
-$ rm -rf ~/.config/i3/ ~/.fonts/Font\ Awesome*
+$ rm -rf ~/.config/i3/ "~/.fonts/Font Awesome 6 Free-Solid-900.otf"
 ```
