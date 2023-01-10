@@ -27,12 +27,10 @@ $ pip install pytz tzlocal
 ```
 
 **Install Font Awesome:**
-* Download the `fontawesome-free-x.x.x-desktop.zip` archive from [here](https://github.com/FortAwesome/Font-Awesome/releases/latest),
-* Run these commands:
 ```
-$ cd ~/Downloads/
-$ unzip ~/Downloads/fontawesome-free-*-desktop.zip
-$ mv ~/Downloads/fontawesome-free-*-desktop/otfs/* ~/.fonts/
+$ cd ~/
+$ wget https://github.com/FortAwesome/Font-Awesome/blob/6.x/otfs/Font%20Awesome%206%20Free-Solid-900.otf?raw=true
+$ mv "Font Awesome 6 Free-Solid-900.otf" ~/.fonts/
 ```
 
 ### Step 2: clone repository
