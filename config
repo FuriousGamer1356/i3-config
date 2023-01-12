@@ -208,6 +208,7 @@ exec --no-startup-id redshift
 exec --no-startup-id xrandr --output $rightmonitor --right-of $leftmonitor
 exec --no-startup-id xinput set-prop "SYNA7DB5:00 06CB:CD41 Touchpad" "libinput Tapping Enabled" 1
 exec --no-startup-id nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=0 && nitrogen --set-scaled ~/.config/i3/wallpaper.jpg --head=1
+exec --no-startup-id dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
 
 #######
 # bar #
